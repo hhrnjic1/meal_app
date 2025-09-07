@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/data/dummy_data.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -16,14 +17,11 @@ class CategoriesScreen extends StatelessWidget {
             crossAxisSpacing: 20,
             mainAxisSpacing: 20),
         children: [
-          Text("one", style: TextStyle(color: Colors.white)),
-          Text("one", style: TextStyle(color: Colors.white)),
-          Text("one", style: TextStyle(color: Colors.white)),
-          Text("one", style: TextStyle(color: Colors.white)),
-          Text("one", style: TextStyle(color: Colors.white)),
-          Text("one", style: TextStyle(color: Colors.white)),
-          Text("one", style: TextStyle(color: Colors.white)),
-          Text("one", style: TextStyle(color: Colors.white)),
+          for (var category in availableCategories)
+            Text(
+              category.title,
+              style: TextStyle(color: Colors.white),
+            )
         ],
       ),
     );
