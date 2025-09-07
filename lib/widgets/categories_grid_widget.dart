@@ -8,12 +8,13 @@ class CategoriesGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => {print('${category.title}, pressed')},
+      borderRadius: BorderRadius.circular(16),
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(
                 colors: [
                   category.color.withValues(alpha: 0.55),
