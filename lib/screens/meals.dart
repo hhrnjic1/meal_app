@@ -17,28 +17,29 @@ class MealsScreen extends StatelessWidget {
     );
 
     if (meals.isEmpty) {
-      content = Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Oh no.... nothing here!',
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge!
-                .copyWith(color: Theme.of(context).colorScheme.onSurface),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Text(
-            'Try out another category.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(color: Theme.of(context).colorScheme.onSurface),
-          ),
-        ],
+      content = Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Oh no.... nothing here!',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.onSurface),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Text(
+              'Try out another category.',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.onSurface),
+            ),
+          ],
+        ),
       );
     }
 
