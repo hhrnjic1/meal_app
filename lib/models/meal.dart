@@ -10,6 +10,12 @@ enum Affordability {
   luxurious,
 }
 
+extension FirstLetterUppercase on Enum {
+  String toFirstLetterUppercaseString() {
+    return name[0].toUpperCase() + name.substring(1);
+  }
+}
+
 class Meal {
   const Meal({
     required this.id,

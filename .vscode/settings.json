@@ -1,3 +1,12 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/3.35.3"
+  "dart.flutterSdkPath": ".fvm/versions/3.35.3",
+  "accessibility.signals.taskCompleted": {
+    "sound": "off"
+  },
+  "accessibility.signals.progress": {
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasError": {
+    "sound": "off"
+  }
 }
