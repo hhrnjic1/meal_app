@@ -18,7 +18,10 @@ class MealItem extends StatelessWidget {
       elevation: 2,
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (ctx) => MealDetails(meal: meal)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (ctx) => MealDetailsScreen(meal: meal)));
         },
         child: Stack(
           children: [
