@@ -3,10 +3,15 @@ import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, required this.title, required this.meals});
+  const MealsScreen(
+      {super.key,
+      required this.title,
+      required this.meals,
+      this.isFavorites = false});
 
   final String title;
   final List<Meal> meals;
+  final bool isFavorites;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +49,14 @@ class MealsScreen extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: content);
+    if (isFavorites) {
+      return content;
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text(title),
+          ),
+          body: content);
+    }
   }
 }
