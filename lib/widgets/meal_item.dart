@@ -5,12 +5,17 @@ import 'package:meals_app/widgets/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
-  const MealItem({super.key, required this.meal});
+  const MealItem(
+      {super.key, required this.meal, required this.onToggleFavorite, required this.checkIsFavorite});
 
   final Meal meal;
+  final void Function(Meal meal) onToggleFavorite;
+  final bool Function(Meal meal) checkIsFavorite;
 
   @override
   Widget build(BuildContext context) {
+    var isFavorite = checkIsFavorite(meal);
+
     return Card(
       margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -21,7 +26,11 @@ class MealItem extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (ctx) => MealDetailsScreen(meal: meal)));
+                  builder: (ctx) => MealDetailsScreen(
+                        meal: meal,
+                        onToggleFavorite: onToggleFavorite,
+                        isFavorite: isFavorite,
+                      )));
         },
         child: Stack(
           children: [
