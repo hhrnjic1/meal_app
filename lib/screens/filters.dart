@@ -3,6 +3,13 @@ import 'package:meals_app/widgets/filter_widget.dart';
 // import 'package:meals_app/screens/tabs.dart';
 // import 'package:meals_app/widgets/main_drawer.dart';
 
+enum Filter {
+  glutenFree,
+  lactoseFree,
+  vegetarian,
+  vegan
+}
+
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
 
@@ -30,45 +37,57 @@ class _FiltersScreenState extends State<FiltersScreen> {
       //         .push(MaterialPageRoute(builder: (ctx) => const TabsScreen()));
       //   }
       // }),
-      body: Column(
-        children: [
-          FilterWidget(
-              title: 'Gluten Free',
-              subtitle: 'Include only gluten free meals',
-              value: _glutenFreeSwitchValue,
-              onChanged: (newValue) => {
-                    setState(() {
-                      _glutenFreeSwitchValue = newValue;
-                    })
-                  }),
-          FilterWidget(
-              title: 'Lactose Free',
-              subtitle: 'Include only lactose free meals',
-              value: _lactoseFreeSwitchValue,
-              onChanged: (newValue) => {
-                    setState(() {
-                      _lactoseFreeSwitchValue = newValue;
-                    })
-                  }),
-          FilterWidget(
-              title: 'Vegetarian',
-              subtitle: 'Include only vegetarian meals',
-              value: _vegetarianSwitchValue,
-              onChanged: (newValue) => {
-                    setState(() {
-                      _vegetarianSwitchValue = newValue;
-                    })
-                  }),
-          FilterWidget(
-              title: 'Vegan Free',
-              subtitle: 'Include only vegetarian meals',
-              value: _veganSwitchValue,
-              onChanged: (newValue) => {
-                    setState(() {
-                      _veganSwitchValue = newValue;
-                    })
-                  }),
-        ],
+      body: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop) return;
+          Navigator.of(context).pop({
+            Filter.glutenFree: _glutenFreeSwitchValue,
+            Filter.lactoseFree: _lactoseFreeSwitchValue,
+            Filter.vegetarian: _vegetarianSwitchValue,
+            Filter.vegan: _veganSwitchValue,
+          });
+        },
+        child: Column(
+          children: [
+            FilterWidget(
+                title: 'Gluten Free',
+                subtitle: 'Include only gluten free meals',
+                value: _glutenFreeSwitchValue,
+                onChanged: (newValue) => {
+                      setState(() {
+                        _glutenFreeSwitchValue = newValue;
+                      })
+                    }),
+            FilterWidget(
+                title: 'Lactose Free',
+                subtitle: 'Include only lactose free meals',
+                value: _lactoseFreeSwitchValue,
+                onChanged: (newValue) => {
+                      setState(() {
+                        _lactoseFreeSwitchValue = newValue;
+                      })
+                    }),
+            FilterWidget(
+                title: 'Vegetarian',
+                subtitle: 'Include only vegetarian meals',
+                value: _vegetarianSwitchValue,
+                onChanged: (newValue) => {
+                      setState(() {
+                        _vegetarianSwitchValue = newValue;
+                      })
+                    }),
+            FilterWidget(
+                title: 'Vegan Free',
+                subtitle: 'Include only vegetarian meals',
+                value: _veganSwitchValue,
+                onChanged: (newValue) => {
+                      setState(() {
+                        _veganSwitchValue = newValue;
+                      })
+                    }),
+          ],
+        ),
       ),
     );
   }
