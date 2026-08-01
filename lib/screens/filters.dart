@@ -29,7 +29,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
       appBar: AppBar(
         title: const Text("Your Filters"),
       ),
-// We can have this but we will not use it here
+      // We can have this but we will not use it here
       // drawer: MainDrawer(onSelectScreen: (selectedScreen) {
       //   Navigator.of(context).pop();
       //   if (selectedScreen == 'Meals') {
