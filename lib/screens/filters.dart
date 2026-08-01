@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/providers/filters_provider.dart';
 import 'package:meals_app/widgets/filter_widget.dart';
-// import 'package:meals_app/screens/tabs.dart';
-// import 'package:meals_app/widgets/main_drawer.dart';
 
-enum Filter { glutenFree, lactoseFree, vegetarian, vegan }
-
-class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({super.key, required this.appliedFilters});
-
-  final Map<Filter, bool> appliedFilters;
+class FiltersScreen extends ConsumerStatefulWidget {
+  const FiltersScreen({super.key});
 
   @override
-  State<FiltersScreen> createState() => _FiltersScreenState();
+  ConsumerState<FiltersScreen> createState() => _FiltersScreenState();
 }
 
-class _FiltersScreenState extends State<FiltersScreen> {
+class _FiltersScreenState extends ConsumerState<FiltersScreen> {
   var _glutenFreeSwitchValue = false;
   var _lactoseFreeSwitchValue = false;
   var _vegetarianSwitchValue = false;
@@ -23,10 +19,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
   @override
   void initState() {
     super.initState();
-    _glutenFreeSwitchValue = widget.appliedFilters[Filter.glutenFree]!;
-    _lactoseFreeSwitchValue = widget.appliedFilters[Filter.lactoseFree]!;
-    _vegetarianSwitchValue = widget.appliedFilters[Filter.vegetarian]!;
-    _veganSwitchValue = widget.appliedFilters[Filter.vegan]!;
+    final appliedFilters = ref.read(filtersProvider);
+    _glutenFreeSwitchValue = appliedFilters[Filter.glutenFree]!;
+    _lactoseFreeSwitchValue = appliedFilters[Filter.lactoseFree]!;
+    _vegetarianSwitchValue = appliedFilters[Filter.vegetarian]!;
+    _veganSwitchValue = appliedFilters[Filter.vegan]!;
   }
 
   @override
@@ -35,24 +32,17 @@ class _FiltersScreenState extends State<FiltersScreen> {
       appBar: AppBar(
         title: const Text("Your Filters"),
       ),
-      // We can have this but we will not use it here
-      // drawer: MainDrawer(onSelectScreen: (selectedScreen) {
-      //   Navigator.of(context).pop();
-      //   if (selectedScreen == 'Meals') {
-      //     Navigator.of(context)
-      //         .push(MaterialPageRoute(builder: (ctx) => const TabsScreen()));
-      //   }
-      // }),
       body: PopScope(
         canPop: false,
         onPopInvokedWithResult: (didPop, result) {
           if (didPop) return;
-          Navigator.of(context).pop({
+          ref.read(filtersProvider.notifier).setFilters({
             Filter.glutenFree: _glutenFreeSwitchValue,
             Filter.lactoseFree: _lactoseFreeSwitchValue,
             Filter.vegetarian: _vegetarianSwitchValue,
             Filter.vegan: _veganSwitchValue,
           });
+          Navigator.of(context).pop();
         },
         child: Column(
           children: [
