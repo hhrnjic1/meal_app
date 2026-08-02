@@ -23,10 +23,12 @@ class _CategoriesScreenState extends State<CategoriesScreen>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 400),
       lowerBound: 0,
       upperBound: 1,
     );
+
+    _animationController.forward();
   }
 
   @override
@@ -50,21 +52,28 @@ class _CategoriesScreenState extends State<CategoriesScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      padding: EdgeInsets.all(24),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20),
-      children: [
-        for (final category in availableCategories)
-          CategoriesGridWidget(
-              category: category,
-              onSelectCategory: () {
-                _selectCategory(context, category);
-              })
-      ],
-    );
+    return AnimatedBuilder(
+        animation: _animationController,
+        child: GridView(
+          padding: EdgeInsets.all(24),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3 / 2,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20),
+          children: [
+            for (final category in availableCategories)
+              CategoriesGridWidget(
+                  category: category,
+                  onSelectCategory: () {
+                    _selectCategory(context, category);
+                  })
+          ],
+        ),
+        builder: (context, child) => SlideTransition(
+            position: Tween(begin: const Offset(0, 1), end: Offset(0, 0))
+                .animate(CurvedAnimation(
+                    parent: _animationController, curve: Curves.easeInOut)),
+            child: child));
   }
 }
