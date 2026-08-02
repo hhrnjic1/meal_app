@@ -21,12 +21,22 @@ class MealDetailsScreen extends ConsumerWidget {
         title: Text(meal.title),
         actions: [
           IconButton(
-              onPressed: () {
-                ref
-                    .read(favoritesMealProvider.notifier)
-                    .toggleMealFavoriteStatus(meal);
-              },
-              icon: Icon(isFavorite ? Icons.star : Icons.star_border))
+            onPressed: () {
+              ref
+                  .read(favoritesMealProvider.notifier)
+                  .toggleMealFavoriteStatus(meal);
+            },
+            icon: AnimatedSwitcher(
+                duration: Duration(milliseconds: 400),
+                transitionBuilder: (child, animation) {
+                  return RotationTransition(
+                      turns: Tween(begin: 0.7, end: 1.0).animate(animation),
+                      child: child);
+                },
+                child: Icon(
+                    key: ValueKey(isFavorite),
+                    isFavorite ? Icons.star : Icons.star_border)),
+          )
         ],
       ),
       body: SingleChildScrollView(
